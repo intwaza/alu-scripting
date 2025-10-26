@@ -19,7 +19,5 @@ def top_ten(subreddit):
         if POSTS:
             for POST in POSTS:
                 print(POST.get("data").get("title"))
-        else:
-            print("OK")
     except Exception:
         print("OK")
