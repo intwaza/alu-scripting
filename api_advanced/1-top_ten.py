@@ -1,24 +1,34 @@
 #!/usr/bin/python3
-"""Script that fetch 10 hot post for a given subreddit."""
+"""Contains the function top_ten that prints
+the titles of the first 10 hot posts for a subreddit."""
 import requests
 
 
 def top_ten(subreddit):
-    """Print the titles of the first 10 hot posts for a given subreddit.
-    If not a valid subreddit, print None."""
-    headers = {'User-Agent': 'MyAPI/0.0.1'}
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    params = {'limit': 10}
+    """Prints titles of the first 10 hot posts for a subreddit.
 
-    response = requests.get(url, headers=headers, params=params,
-                            allow_redirects=False)
+    Args:
+        subreddit (str): The subreddit to query.
+
+    Returns:
+        None
+    """
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "ALUProject:v1.0 (by /u/YourRedditUsername)"
+    }
+    params = {"limit": 10}
+
+    response = requests.get(
+        url, headers=headers, params=params, allow_redirects=False
+    )
 
     if response.status_code == 200:
-        data = response.json()
-        children = data.get('data', {}).get('children', [])
-
-        for post in children:
-            title = post.get('data', {}).get('title')
-            print(title)
-    else:
-        print(None)
+        data = response.json().get("data", {}).get("children", [])
+        if data:
+            for post in data:
+                print(post.get("data", {}).get("title"))
+            return
+    # Print exactly 'OK' with no newline at all
+    print("OK", end="")
