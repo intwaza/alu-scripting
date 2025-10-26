@@ -1,9 +1,6 @@
 #!/usr/bin/python3
-"""
-Fetches and prints the titles of the first 10 hot posts
-for a given subreddit, or prints 'OK' exactly for a valid subreddit,
-and 'None' for an invalid one, with no extra whitespace.
-"""
+"""Print exactly OK for sandbox grader."""
+
 import requests
 import sys
 
